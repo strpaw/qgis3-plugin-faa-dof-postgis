@@ -1,5 +1,6 @@
 # Table of Contents
  
+- [Development setup](#dev_setup)
 * [Project structure](#project_structure)
 * [Database setup](#database_setup)
   * [Notes](#database_setup_notes)
@@ -15,6 +16,42 @@
   * [Insert single obstacle](#insert_single_obstacle)
   * [Update single obstacle](#update_single_obstacle)
   * [Import obstacles from Digital Obstacle File (DOF) csv/dat format](#import_dof)
+
+# Development setup <a name=dev_setup>
+
+## Prerequisites
+
+* QGIS >=3.34, < 4.0 (provides Python 3.12 amd PyQT5)
+* Poetry installed
+
+## Setting up the development environment
+
+> Replace `<QGIS_ROOT_PATH>` in the commands below with the actual path to QGIS on your host.
+
+1. Create a virtual environment using the QGIS Python installation:
+```powershell
+& "<QGIS_ROOT_PATH>\apps\Python312\python.exe" -m venv .venv --system-site-packages
+```
+
+2. Verify that PyQt5 is inherited from the system site packages:
+```powershell
+& .venv\Scripts\python.exe -c "import PyQt5; print(PyQt5.__file__)"
+```
+
+3. Install the project dependencies:
+```powershell
+poetry install
+```
+4. Add the QGIS Python path to the virtual environment:
+```powershell
+Add-Content ".venv\Lib\site-packages\qgis_paths.pth" "<QGIS_ROOT_PATH>\apps\qgis-ltr\python"
+```
+5. Verify that both PyQt5 and QGIS are importable:
+```powershell
+& .venv\Scripts\python.exe -c "import PyQt5; import qgis; print('OK')"
+```
+6. Configure your IDE:
+Set the Python interpreter to: `.venv\Scripts\python.exe`
 
 # Project structure <a name=project_structure>
 
